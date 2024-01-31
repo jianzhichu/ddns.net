@@ -1,5 +1,5 @@
 # ddns.net
-程序使用.NetCore6.0+Vue3 开发（前后端SPA模式）。
+使用.NetCore6.0+Vue3 开发（前后端SPA模式）。
 
 支持阿里云，腾讯云，百度云，华为云，京东云，Godaddy、西部数码，支持IPV4,IPV6。
 
