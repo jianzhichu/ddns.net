@@ -3,10 +3,6 @@
 
 支持阿里云，腾讯云，百度云，华为云，京东云，Godaddy、西部数码，支持IPV4,IPV6。
 
-相比DDNS-GO并没什么优势（反而更吃内存：1、技术问题，2、NetCore框架吃内存），有兴趣可以试一下。
-
-没有开源计划（都是调用接口，无技术含量，开源意义不大）。
-
 IPV4通过接口获取（https://www.cz88.net）
 
 IPV6优先网卡获取，其次接口获取（https://6.ipw.cn,https://speed.neu6.edu.cn/getIP.php，https://v6.ident.me）
