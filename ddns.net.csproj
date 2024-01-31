@@ -1,0 +1,96 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+	  <SpaRoot>app\</SpaRoot>
+	  <GenerateDocumentationFile>True</GenerateDocumentationFile>
+
+
+	  <ConcurrentGarbageCollection>true</ConcurrentGarbageCollection>
+	  <ServerGarbageCollection>false</ServerGarbageCollection>
+	  <RetainVMGarbageCollection>true</RetainVMGarbageCollection>
+	  <ThreadPoolMinThreads>1</ThreadPoolMinThreads>
+	  <ThreadPoolMaxThreads>100</ThreadPoolMaxThreads>
+	  <!-- Supported as of .NET Core SDK 3.0 Preview 1 -->
+	  <TieredCompilation>true</TieredCompilation>
+	  <InvariantGlobalization>true</InvariantGlobalization>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="cloud\jingdong\**" />
+    <Compile Remove="job\**" />
+    <Content Remove="cloud\jingdong\**" />
+    <Content Remove="job\**" />
+    <EmbeddedResource Remove="cloud\jingdong\**" />
+    <EmbeddedResource Remove="job\**" />
+    <None Remove="cloud\jingdong\**" />
+    <None Remove="job\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="service\QuartzJobService.cs" />
+    <Compile Remove="service\SqlSugarDBService.cs" />
+    <Compile Remove="service\SqlSugarFactory.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+	  <!--<PackageReference Include="ClockSnowFlake" Version="1.1.0" />-->
+	  <PackageReference Include="MailKit" Version="4.3.0" />
+	  <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.16" />
+	  <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="6.0.10" />
+	  <PackageReference Include="Microsoft.Data.Sqlite" Version="8.0.0" />
+	  <!--<PackageReference Include="Microsoft.Data.Sqlite" Version="8.0.0" />-->
+	  <!--<PackageReference Include="Quartz" Version="3.8.0" />
+	  <PackageReference Include="Quartz.AspNetCore" Version="3.8.0" />
+	  <PackageReference Include="Quartz.Extensions.DependencyInjection" Version="3.8.0" />
+	  <PackageReference Include="Quartz.Extensions.Hosting" Version="3.8.0" />-->
+	  <!--<PackageReference Include="SqlSugarCore" Version="5.1.4.128" />
+	  <PackageReference Include="SqlSugarCoreNoDrive" Version="5.1.4.124" />-->
+	  <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.11.0" />
+	  <!--<PackageReference Include="JDCloudSDK.Clouddnsservice" Version="1.0.12.1" />
+      <PackageReference Include="JDCloudSDK.Domainservice" Version="2.0.3.1" />-->
+	  <!--<PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="5.6.3" />
+	  <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="5.6.3" />
+	  <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="5.6.3" />-->
+	  <PackageReference Include="Serilog.AspNetCore" Version="3.4.0" />
+	  <!--<PackageReference Include="Serilog.Sinks.Async" Version="1.4.0" />-->
+	  <!--<PackageReference Include="Serilog.Sinks.Console" Version="3.1.1" />-->
+	  <!--<PackageReference Include="Serilog.Sinks.Seq" Version="4.0.0" />-->
+	  <!--<PackageReference Include="Serilog" Version="3.1.1" />-->
+	  <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="db\ddns.sqlite">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Dockerfile">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="app\" />
+    <Folder Include="logs\" />
+	  
+  </ItemGroup>
+	<Target Name="PublishRunWebpack" AfterTargets="ComputeFilesToPublish">
+		<!-- As part of publishing, ensure the JS resources are freshly built in production mode --> 
+		<Exec WorkingDirectory="$(SpaRoot)" Command="yarn install" />
+		<Exec WorkingDirectory="$(SpaRoot)" Command="yarn run build" />
+
+		 <!--Include the newly-built files in the publish output--> 
+		<ItemGroup>
+			<DistFiles Include="$(SpaRoot)dist\**; $(SpaRoot)dist-server\**" />
+			<DistFiles Include="$(SpaRoot)node_modules\**" Condition="'$(BuildServerSideRenderer)' == 'true'" />
+			<ResolvedFileToPublish Include="@(DistFiles->'%(FullPath)')" Exclude="@(ResolvedFileToPublish)">
+				<RelativePath>%(DistFiles.Identity)</RelativePath>
+				<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+				<ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+			</ResolvedFileToPublish>
+		</ItemGroup>
+	</Target>
+</Project>
