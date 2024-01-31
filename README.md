@@ -1,5 +1,5 @@
 # ddns.net
-程序使用.NetCore6.0开发（前后端SPA模式）。
+程序使用.NetCore6.0+Vue3 开发（前后端SPA模式）。
 
 支持阿里云，腾讯云，百度云，华为云，京东云，Godaddy、西部数码，支持IPV4,IPV6。
 
@@ -18,8 +18,11 @@ docker run -it -e ASPNETCORE_URLS=http://*:8888 -d --restart=always --net=host -
 ```
 参数说明
 
+```
 -e ASPNETCORE_URLS=http://*:8888 指定服务地址
 --net=host  为了获取宿主机网卡IPV6地址，不加则默认使用bridge 无法获取IPV6地址
+```
+
 1.1 如果不需要IPV6或者说家里没有IPV6 则使用下面的命令即可
 
 ```
